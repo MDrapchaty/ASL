@@ -139,9 +139,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		  <?php echo form_submit('submit', 'Add Tip'); 
 		   echo form_close(); 
+		 	echo base_url();
 
+		 	//SAME ERROR FOR THIS TEST
+		 	 $test1 = site_url('Welcome/login');
+		 	echo ' <a href="' . $test1 . ' ">Test</a>' ;
 		   ?>
-
+			
 		</section>
 
 

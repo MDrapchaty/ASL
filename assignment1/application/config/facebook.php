@@ -1,5 +1,5 @@
-<?php
-  $config['appId']  = '211684055910887';
-  $config['secret'] = 'c85b80b107947c5c27c5d2f6488d4d2e';
 
-  ?>
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+$config['appId']   = 'APP_ID_HERE';
+$config['secret']  = 'SECRET_HERE';
+?>
