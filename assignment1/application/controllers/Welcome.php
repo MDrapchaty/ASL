@@ -30,7 +30,9 @@ class Welcome extends CI_Controller {
 			$data['jobs'] = $this->model_Tipkno->getJobs();
 			$this->load->view('welcome_message', $data);
 
+}
 
+/*
 			$fb_config = array(
             'appId'  => 'YOUR_APP_ID_HERE',
             'secret' => 'YOUR_APP_SECRET_HERE'
