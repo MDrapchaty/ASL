@@ -11,21 +11,104 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<title><?php echo $title; ?></title>
 </head>
 <body>
-	<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=211684055910887";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
-			<div id="header">
+	
+    
+
+
+<!--
+	
+		<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '211684055910887',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+-->	
+
+<div id="fb-root"></div>
+<script src="//connect.facebook.net/en_US/all.js"></script>
+<script>
+FB.init({
+appId      : '211684055910887',
+channelUrl : 'http://localhost:8888/ASL/assignment1/index.php', // Channel File
+status     : true, // check login status
+cookie     : true, // enable cookies to allow the server to access the session
+xfbml      : true  // parse XFBML
+});
+</script>
+
+
+	<div id="header">
 				<h1>TipKno</h1>
 				<h3>the free and easy to use tip manager</h3>
-				<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
-				<a href="#">Logout</a>
+
+			<!--	<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+				  -->
 	</div>
-	<div id="main">
+
+	<div id="login">
+	<h2>Login To Your Facebook Account</h2>
+	<script>
+	function checkFacebookLogin() 
+	    {
+	        FB.getLoginStatus(function(response) {
+	          if (response.status === 'connected') {
+	            	document.getElementById("login").style.display = 'none';
+					document.getElementById("main").style.display = 'block';
+	          } 
+	          else 
+	          {
+	            initiateFBLogin();
+	            
+	          }
+	         });
+	    }
+
+
+	function initiateFBLogin()
+	    {
+	        FB.login(function(response) {
+					if (response.status === 'connected') {
+	            	document.getElementById("login").style.display = 'none';
+					document.getElementById("main").style.display = 'block';
+	          } 
+	         });
+	    }
+
+
+	</script>
+
+	<input type="button" value="Log In" onclick="checkFacebookLogin();"/>
+
+	</div>
+	<script>
+		function logout() {
+            FB.logout(function(response) {
+              // user is now logged out
+            });
+            document.getElementById("main").style.display = 'none';
+			document.getElementById("login").style.display = 'block';
+        }
+	</script>
+
+
+	<div id="main" style="display:none">
+		<div id="logout"> 
+			<button id="logOff" onclick="javascript:logout();">Logout</button>
+		</div>
+
 		<section>
 			<h2>choose a job</h2>
 			<div>
@@ -33,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<?php
 				    	foreach ($jobs as $job) {
 				    		$path3 = site_url('Welcome/deletejob/'. $job->jobid);
-				    		echo '<li>' . $job->jobname . '<a href="' . $path3 .  '">Delete</a> </li>';
+				    		echo '<li>' . $job->jobname . '<a href="' . $path3 .  '" onclick="return confirm("Are you sure?");">Delete</a> </li>';
 				    	}
 				    ?>
 			    </ul>
@@ -150,7 +233,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 	</div>
-
+<script>
+	window.onload = checkFacebookLogin();
+</script>
 	
 
 </body>

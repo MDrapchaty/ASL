@@ -44,7 +44,12 @@
 				'monthid'=>$month,
 				'jobid'=>$job
 			);
-			$this->db->insert('tips',$data);
+			if (is_numeric($_POST['tipamount']) && is_numeric($_POST['hours'])) { 
+			    $this->db->insert('tips',$data);
+			  }else{
+			  	echo "<div class='message'>Invalid Tip and/or hours...Both Need to be a number. Please try again!</div>";
+			  }
+
 		}
 
 		function addjob(){
@@ -52,7 +57,12 @@
 			$jobdata = array(
 				'jobname'=>$jobname
 			);
+			if (empty($_POST["jobname"])) {
+		       echo "<div class='message'>Invalid Job...Needs to be a word. Please try again!</div>"; 
+		    }
+		    else {
 			$this->db->insert('jobs', $jobdata);
+			}
 		}
 
 

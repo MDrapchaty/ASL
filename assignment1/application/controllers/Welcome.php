@@ -11,6 +11,7 @@ class Welcome extends CI_Controller {
         parent::__construct();
         $this->load->model('model_Tipkno');
         $this->load->helper('url');
+        
 
 
 
@@ -99,11 +100,24 @@ class Welcome extends CI_Controller {
     	}
 
     function deletejob()
-   	    {	
-        	$id = $this->uri->segment(3);
-			$this->model_Tipkno->deletejob($id);
-			$this->index();
+   	    {	?>
+          <script type="text/javascript">
+            if (confirm("This Will Delete All Tips For This Job. Are You Sure?")){
+                 <?
+                 $id = $this->uri->segment(3);
+                 $this->model_Tipkno->deletejob($id);
+                 $this->index();
+                 ?>
+            } else {
+                 history.go(-1);
+            }     
+          </script>
+          <?php  
     	}
+        
+
+
+
 /*
     // Logout from facebook
 	function logout() {
@@ -160,3 +174,5 @@ class Welcome extends CI_Controller {
 
 
 }
+
+?>
