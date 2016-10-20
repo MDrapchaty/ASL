@@ -11,7 +11,7 @@ class Welcome extends CI_Controller {
         parent::__construct();
         $this->load->model('model_Tipkno');
         $this->load->helper('url');
-        
+
 
 
 
@@ -37,6 +37,7 @@ class Welcome extends CI_Controller {
 			$data['title'] = "TipKno";
 			$data['tips'] = $this->model_Tipkno->getTips();
 			$data['jobs'] = $this->model_Tipkno->getJobs();
+            $data['results'] = $this->model_Tipkno->getResult();
 		    $this->load->view('welcome_message', $data);
 
 

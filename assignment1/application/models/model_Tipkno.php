@@ -3,7 +3,7 @@
 	class model_Tipkno extends CI_Controller {
 
 		function getTips(){
-			$query = $this->db->query('SELECT * FROM tips JOIN days ON tips.dayid=days.dayid JOIN months ON tips.monthid=months.monthid JOIN jobs ON tips.jobid=jobs.jobid ORDER BY tipid DESC;');
+			$query = $this->db->query('SELECT * FROM tips JOIN days ON tips.dayid=days.dayid JOIN months ON tips.monthid=months.monthid JOIN jobs ON tips.jobid=jobs.jobid ORDER BY jobs.jobid, tipid DESC;');
 
 			if ($query->num_rows() > 0){
 				return $query->result(); //returns array of objects
@@ -16,6 +16,16 @@
 		function getJobs(){
 			$query = $this->db->query('SELECT * FROM jobs');
 
+			if ($query->num_rows() > 0){
+				return $query->result(); //returns array of objects
+			}else{
+				return NULL;
+			}
+		}
+
+		function getResult(){
+			$query = $this->db->query('SELECT ROUND(tipamount / hours, 2) AS result, jobname, dayname, week, monthname FROM tips JOIN days ON tips.dayid=days.dayid JOIN months ON tips.monthid=months.monthid JOIN jobs ON tips.jobid=jobs.jobid ORDER BY result DESC LIMIT 3;');
+			
 			if ($query->num_rows() > 0){
 				return $query->result(); //returns array of objects
 			}else{
